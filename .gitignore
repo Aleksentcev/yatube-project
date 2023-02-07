@@ -150,3 +150,9 @@ static/
 yatube/posts/static/
 yatube/media/
 
+# coverage
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
