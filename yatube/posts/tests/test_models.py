@@ -76,16 +76,16 @@ class CommentModelTest(TestCase):
         cls.user = User.objects.create_user(username='auth')
         cls.post = Post.objects.create(
             author=cls.user,
-            text='Тестовый текст тестового поста',
+            text='Тестовый текст',
         )
         cls.comment = Comment.objects.create(
             post=cls.post,
-            text='Тестовый комментарий.',
+            text='Тестовый комментарий',
             author=cls.user,
         )
 
     def test_comment_model_has_correct_object_name(self):
-        """Проверяем, что у модели поста корректно работает __str__."""
+        """Проверяем, что у модели комментария корректно работает __str__."""
         comment = CommentModelTest.comment
         expected_object_name = comment.text
         self.assertEqual(expected_object_name, str(comment))

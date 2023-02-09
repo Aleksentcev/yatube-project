@@ -21,7 +21,12 @@ def server_error(request):
 
 
 def permission_denied(request, exception):
-    return render(request, 'core/403.html', status=HTTPStatus.FORBIDDEN)
+    return render(
+        request,
+        'core/403.html',
+        {'path': request.path},
+        status=HTTPStatus.FORBIDDEN
+    )
 
 
 def csrf_failure(request, reason=''):
