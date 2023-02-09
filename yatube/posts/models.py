@@ -81,6 +81,7 @@ class Comment(models.Model):
     )
 
     class Meta:
+        ordering = ('-created',)
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
 
@@ -103,7 +104,17 @@ class Follow(models.Model):
     )
 
     class Meta:
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
+
         constraints = [
             models.UniqueConstraint(fields=['user', 'author'],
-                                    name='unique_follower')
+                                    name='unique_follower'),
+            models.CheckConstraint(
+                check=~models.Q(user=models.F('author')),
+                name='check_not_self_follow'
+            ),
         ]
+# Спасибо большое за все комменты, они очень полезные ;)
+# Я не совсем понял как тут применить метод clean()
+# он не работал, в гугле и у других студентов нашел вот такое решение.

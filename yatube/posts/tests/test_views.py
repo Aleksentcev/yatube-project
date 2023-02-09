@@ -223,15 +223,18 @@ class PostsViewsTests(TestCase):
             author=self.author,
         )
         response = self.guest_client.get(reverse(INDEX))
-        self.assertContains(response, post.text)
+        self.assertContains(response, post)
         post.delete()
         response = self.guest_client.get(reverse(INDEX))
         self.assertContains(response, post)
+        cache.clear()
+        response = self.guest_client.get(reverse(INDEX))
+        self.assertNotContains(response, post)
 
-    def test_follow_and_unfollow(self):
+    def test_follow(self):
         """
         Проверяем возможность пользователя подписаться
-        на другого пользователя и отписаться от него.
+        на другого пользователя.
         """
         self.authorized_client.get(
             reverse(FOLLOW, kwargs={'username': self.author.username})
@@ -242,6 +245,15 @@ class PostsViewsTests(TestCase):
                 author=self.author
             )
             .exists()
+        )
+
+    def test_unfollow(self):
+        """
+        Проверяем возможность пользователя отписаться
+        от другого пользователя.
+        """
+        self.authorized_client.get(
+            reverse(FOLLOW, kwargs={'username': self.author.username})
         )
         self.authorized_client.get(
             reverse(UNFOLLOW, kwargs={'username': self.author.username})
@@ -259,7 +271,9 @@ class PaginatorViewsTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.guest_client = Client()
+        cls.user = User.objects.create_user(username='no_name')
+        cls.authorized_client = Client()
+        cls.authorized_client.force_login(cls.user)
         cls.author = User.objects.create_user(username='author')
         cls.group = Group.objects.create(
             title='Тестовая группа',
@@ -272,16 +286,21 @@ class PaginatorViewsTest(TestCase):
                 author=cls.author,
                 group=cls.group
             )
+        Follow.objects.create(
+            user=cls.user,
+            author=cls.author,
+        )
 
     def test_first_page_contains_ten_posts(self):
         pages = [
             reverse(INDEX),
             reverse(GROUP_LIST, kwargs={'slug': self.group.slug}),
-            reverse(PROFILE, kwargs={'username': self.author.username})
+            reverse(PROFILE, kwargs={'username': self.author.username}),
+            reverse(FOLLOW_INDEX)
         ]
         for page in pages:
             with self.subTest(page=page):
-                response = self.guest_client.get(page)
+                response = self.authorized_client.get(page)
         self.assertEqual(
             len(response.context['page_obj']),
             NUM_OF_SHOWING_POSTS
@@ -289,12 +308,14 @@ class PaginatorViewsTest(TestCase):
 
     def test_second_page_contains_two_posts(self):
         pages = [
+            reverse(INDEX),
             reverse(GROUP_LIST, kwargs={'slug': self.group.slug}),
-            reverse(PROFILE, kwargs={'username': self.author.username})
+            reverse(PROFILE, kwargs={'username': self.author.username}),
+            reverse(FOLLOW_INDEX)
         ]
         for page in pages:
             with self.subTest(page=page):
-                response = self.guest_client.get(page + '?page=2')
+                response = self.authorized_client.get(page + '?page=2')
         self.assertEqual(
             len(response.context['page_obj']),
             NUM_OF_POSTS_ON_PAGE_TWO

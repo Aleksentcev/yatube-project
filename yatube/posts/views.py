@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render, redirect
-from django.views.decorators.cache import cache_page
 
 from .forms import PostForm, CommentForm
 from .models import Group, Post, Follow
@@ -20,38 +19,42 @@ def get_page_context(post_list, request):
     return {'page_obj': page_obj, }
 
 
-@cache_page(INDEX_CACHE_UPD, key_prefix='index_page')
 def index(request):
-    context = get_page_context(Post.objects.all(), request)
+    context = get_page_context(
+        Post.objects.select_related('author', 'group'),
+        request
+    )
     return render(request, 'posts/index.html', context)
 
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
+    group_posts_list = group.posts.select_related('author')
     context = {
         'group': group,
     }
-    context.update(get_page_context(group.posts.all(), request))
+    context.update(get_page_context(group_posts_list, request))
     return render(request, 'posts/group_list.html', context)
 
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    following = False
-    if request.user.is_authenticated:
-        following = Follow.objects.filter(
-            user=request.user, author=author).exists()
+    author_posts_list = author.posts.select_related('group')
+    following = request.user.is_authenticated and Follow.objects.filter(
+        user=request.user,
+        author=author
+    ).exists()
     context = {
         'author': author,
         'following': following,
     }
-    context.update(get_page_context(author.posts.all(), request))
+    context.update(get_page_context(author_posts_list, request))
     return render(request, 'posts/profile.html', context)
 
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    form = CommentForm(request.POST or None)
+    form = CommentForm()
     context = {
         'post': post,
         'form': form,
@@ -107,7 +110,10 @@ def add_comment(request, post_id):
 @login_required
 def follow_index(request):
     context = get_page_context(
-        Post.objects.filter(author__following__user=request.user),
+        Post.objects.select_related(
+            'author',
+            'group'
+        ).filter(author__following__user=request.user),
         request
     )
     return render(request, 'posts/follow.html', context)

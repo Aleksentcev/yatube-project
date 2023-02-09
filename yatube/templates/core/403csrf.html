@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Custom CSRF check error{% endblock %}
+{% block title %}Ошибка доступа 403{% endblock %}
 {% block content %}
-  <h1>Custom CSRF check error. 403</h1>
+  <h1>Ошибка проверки CSRF 403! Запрос отклонён.</h1>
+  <p>
+    Вы видите это сообщение, потому что данный сайт требует, чтобы при отправке форм была отправлена и CSRF-cookie.
+    Если вы настроили свой браузер таким образом, чтобы он не передавал или не хранил cookie, пожалуйста, включите эту функцию вновь.
+  </p>
+  <a href="{% url 'posts:index' %}"> На главную</a>
 {% endblock %}
-
-
-

@@ -232,7 +232,8 @@ class CommentFormTests(TestCase):
         self.assertTrue(
             Comment.objects.filter(
                 **form_data,
-                author=self.user
+                author=self.user,
+                post=self.post
             )
             .exists()
         )
