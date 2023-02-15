@@ -252,8 +252,9 @@ class PostsViewsTests(TestCase):
         Проверяем возможность пользователя отписаться
         от другого пользователя.
         """
-        self.authorized_client.get(
-            reverse(FOLLOW, kwargs={'username': self.author.username})
+        Follow.objects.create(
+            user=self.user,
+            author=self.author,
         )
         self.authorized_client.get(
             reverse(UNFOLLOW, kwargs={'username': self.author.username})
