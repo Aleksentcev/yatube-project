@@ -13,8 +13,8 @@
           </li>
           {% if post.group %}
             <li class="list-group-item">
-              Группа: {{ post.group }}
-              <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+              Группа: {{ post.group }} <br>
+              <a class="btn btn-light btn-sm" href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
             </li>
           {% endif %} 
           <li class="list-group-item">
@@ -24,7 +24,7 @@
             Всего постов автора: {{ post.author.posts.count }} 
           </li>
           <li class="list-group-item">
-            <a href="{% url 'posts:profile' post.author.username %}">все посты пользователя</a>
+            <a class="btn btn-light btn-sm" href="{% url 'posts:profile' post.author.username %}">все посты пользователя</a>
           </li>
         </ul>
       </aside>
@@ -37,7 +37,7 @@
           </p>
           {% if request.user == post.author %}
           <li class="list-group-item">
-            <a class="btn btn-primary" href="{% url 'posts:post_edit' post.pk %}">редактировать пост</a>
+            <a class="btn btn-dark" href="{% url 'posts:post_edit' post.pk %}">редактировать пост</a>
           </li>
           {% endif %}
           {% load user_filters %}
@@ -61,7 +61,7 @@
                       {% endif %}
                     </div>
                   {% endfor %}
-                  <button type="submit" class="btn btn-primary">Отправить</button>
+                  <button type="submit" class="btn btn-dark">Отправить</button>
                 </form>
               </div>
             </div>

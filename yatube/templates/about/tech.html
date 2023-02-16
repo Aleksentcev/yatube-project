@@ -1,16 +1,40 @@
 {% extends "base.html" %}
 {% block title %}Технологии{% endblock %}
 {% block content %}
+{% load static %}
 <div class="container py-5">
   <div class="row">
     <h1 align="center">
-      Вот что я умею.
+      Все, что было использовано в проекте:
     </h1>
-    {% load static %}
-    <p align="center">
-      <img src="{% static 'img/omg/jerry.png'%}" width="433" height="325">
+    <p>
+      <li>attrs==22.2.0</li>
+      <li>certifi==2022.12.7</li>
+      <li>charset-normalizer==2.0.12</li>
+      <li>Django==2.2.16
+      <li>django-debug-toolbar==3.2.4</li>
+      <li>Faker==12.0.1</li>
+      <li>idna==3.4</li>
+      <li>iniconfig==2.0.0</li>
+      <li>mixer==7.1.2</li>
+      <li>packaging==23.0</li>
+      <li>Pillow==8.3.1</li>
+      <li>pluggy==0.13.1</li>
+      <li>py==1.11.0</li>
+      <li>pytest==6.2.4</li>
+      <li>pytest-django==4.4.0</li>
+      <li>pytest-pythonpath==0.7.3</li>
+      <li>python-dateutil==2.8.2</li>
+      <li>pytz==2022.7.1</li>
+      <li>requests==2.26.0</li>
+      <li>six==1.16.0</li>
+      <li>sorl-thumbnail==12.7.0</li>
+      <li>sqlparse==0.4.3</li>
+      <li>toml==0.10.2</li>
+      <li>urllib3==1.26.14</li>
     </p>
-  <h2 align="center">
-    Лучше всего я умею паниковать...
+    <p align="center">
+      <img src="{% static 'img/omg/jerry.png'%}" width="190" height="125">
+    </p>
 </div>
 {% endblock %}

@@ -3,15 +3,31 @@
   Об авторе проекта
 {% endblock %}
 {% block content %}
+{% load static %}
 <div class="container py-5">
   <h1 align="center"> 
     Привет, я автор.
   </h1>
-  {% load static %}
-    <p align="center">
-      <img src="{% static 'img/omg/tom.png'%}" width="315" height="353">
-    </p>
+  <p align="center">
+    <img src="{% static 'img/omg/tom.png'%}" width="315" height="353">
+  </p>
   <h2 align="center">
     Хочется спать, но впереди еще так много работы...
+  </h2>
+  <p>
+  <br>
+    <h5 align="center">Меня можно найти в соцсетях:</h5>
+    <p align="center" class="lead">
+      <a class="navbar-brand" href="https://github.com/aleksentcev">
+        <img src="/static/img/github.png" width="50" height="50" class="d-inline-block align-top" alt="">
+      </a>
+      <a class="navbar-brand" href="https://t.me/aleksentcev">
+        <img src="/static/img/telegram.png" width="50" height="50" class="d-inline-block align-top" alt="">
+      </a>
+      <a class="navbar-brand" href="https://www.instagram.com/aleksentcev/">
+        <img src="/static/img/instagram.png" width="50" height="50" class="d-inline-block align-top" alt="">
+      </a>
+    </p>
+  </p>
 </div>
 {% endblock %} 
