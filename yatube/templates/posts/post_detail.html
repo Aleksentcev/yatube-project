@@ -26,6 +26,11 @@
           <li class="list-group-item">
             <a class="btn btn-light btn-sm" href="{% url 'posts:profile' post.author.username %}">все посты пользователя</a>
           </li>
+          {% if request.user == post.author %}
+          <li class="list-group-item">
+            <a class="btn btn-danger" href="{% url 'posts:post_delete' post.pk %}">удалить пост</a>
+          </li>
+          {% endif %}
         </ul>
       </aside>
         <article class="col-12 col-md-9">
