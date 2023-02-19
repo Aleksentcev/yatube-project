@@ -74,7 +74,7 @@
             <div class="media mb-4">
               <div class="media-body">
                 <h5 class="mt-0">
-                  <a href="{% url 'posts:profile' comment.author.username %}">
+                  <a class="btn btn-outline-secondary" href="{% url 'posts:profile' comment.author.username %}">
                     {{ comment.author.get_full_name }}
                   </a>
                 </h5>
