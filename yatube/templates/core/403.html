@@ -3,5 +3,5 @@
 {% block content %}
     <h1>Ошибка доступа 403!</h1>
     <p>У Вас нет разрешения на доступ к странице {{ path }}.</p>
-    <a href="{% url 'posts:index' %}"> На главную</a>
+    <a class="btn btn-dark" href="{% url 'posts:index' %}"> На главную</a>
 {% endblock %}

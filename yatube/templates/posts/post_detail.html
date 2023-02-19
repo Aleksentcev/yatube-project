@@ -77,7 +77,7 @@
               <div class="media-body">
                 <h5 class="mt-0">
                   <a href="{% url 'posts:profile' comment.author.username %}">
-                    {{ comment.author.username }}
+                    {{ comment.author.get_full_name }}
                   </a>
                 </h5>
                 <span><small>{{ comment.created|date:"d E Y, G:i" }}</small></span>

@@ -3,5 +3,5 @@
 {% block content %}
   <h1>Страница не найдена 404!</h1>
   <p>Страницы с адресом {{ path }} не существует.</p>
-  <a href="{% url 'posts:index' %}"> На главную</a>
+  <a class="btn btn-dark" href="{% url 'posts:index' %}"> На главную</a>
 {% endblock %}
