@@ -4,9 +4,11 @@
 {% endblock %}
 {% block content %}
   <div class="container py-5">
-    <h1> 
-      Последние обновления на сайте 
-    </h1>
+    <ul>
+      <h1> 
+        Последние обновления на сайте 
+      </h1>
+    </ul>
     {% load cache %}
     {% cache 20 index_page page_obj.number %}
     {% include 'posts/includes/switcher.html' %}

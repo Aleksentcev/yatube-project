@@ -4,32 +4,34 @@
 {% endblock %}
 {% block content %} 
   <div class="container py-5">
-    <h1> 
-      Все посты пользователя {{ author.get_full_name }} 
-    </h1>
-    <h3>
-      Всего постов:  {{ author.posts.count }}
-    </h3>
-    <h3>
-      Подписчиков: {{ author.following.count }}
-    </h3>
-    {% if author != user %}
-      {% if following %}
-        <a
-          class="btn btn-lg btn-light"
-          href="{% url 'posts:profile_unfollow' author.username %}" role="button"
-        >
-          Отписаться
-        </a>
-      {% else %}
-        <a
-          class="btn btn-lg btn-dark"
-          href="{% url 'posts:profile_follow' author.username %}" role="button"
-        >
-          Подписаться
-        </a>
+    <ul>
+      <h1> 
+        Все посты пользователя {{ author.get_full_name }} 
+      </h1>
+      <h6>
+        Всего постов:  {{ author.posts.count }}
+      </h6>
+      <h6>
+        Подписчиков: {{ author.following.count }}
+      </h6>
+      {% if author != user %}
+        {% if following %}
+          <a
+            class="btn btn-lg btn-light"
+            href="{% url 'posts:profile_unfollow' author.username %}" role="button"
+          >
+            Отписаться
+          </a>
+        {% else %}
+          <a
+            class="btn btn-lg btn-dark"
+            href="{% url 'posts:profile_follow' author.username %}" role="button"
+          >
+            Подписаться
+          </a>
+        {% endif %}
       {% endif %}
-    {% endif %}
+    </ul>
     {% for post in page_obj %}
       {% include 'includes/post.html' with all_group_posts_link=True %}
     {% endfor %}
