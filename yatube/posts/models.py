@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.core.exceptions import ValidationError
 
 SYMBOLS_NUM = 15
 
@@ -110,11 +111,13 @@ class Follow(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['user', 'author'],
                                     name='unique_follower'),
-            models.CheckConstraint(
-                check=~models.Q(user=models.F('author')),
-                name='check_not_self_follow'
-            ),
         ]
-# Спасибо большое за все комменты, они очень полезные ;)
-# Я не совсем понял как тут применить метод clean()
-# он не работал, в гугле и у других студентов нашел вот такое решение.
+
+    def clean(self):
+        if self.user == self.author:
+            raise ValidationError(
+                {'title': "Нельзя подписываться на себя!"}
+            )
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        return super().save(*args, **kwargs)
