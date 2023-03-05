@@ -112,11 +112,11 @@ class Follow(models.Model):
             models.UniqueConstraint(fields=['user', 'author'],
                                     name='unique_follower'),
         ]
-
+# не забыть дописать шаблон, чтобы ошибка отображалась.
     def clean(self):
         if self.user == self.author:
             raise ValidationError(
-                {'title': "Нельзя подписываться на себя!"}
+                {'title': "Нельзя подписаться на самого себя!"}
             )
     def save(self, *args, **kwargs):
         self.full_clean()
