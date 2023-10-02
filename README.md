@@ -1,17 +1,16 @@
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 
 
-# Проект YaMDb 
+# Проект Yatube 
 
-YaMDb собирает отзывы пользователей на произведения. Произведения делятся на категории: «Книги», «Фильмы», «Музыка».
-Пользователи могут оставить один отзыв для одного произведения. Также они могут оставлять комментарии под другими отзывами.
+Yatube - это социальная сеть для ведения микроблогов. Пользователи могут создавать и редактировать публикации, оставлять комментарии, подписываться на других пользователей, объединять публикации в группы. Реализован бекенд, фронтенд, настроена пагинация и кеширование. Проект покрыт тестами.
 
 ### Как запустить проект:
 
 Клонировать репозиторий и перейти в него в командной строке:
 
 ```
-git clone https://github.com/Aleksentcev/api_yamdb.git
+git clone https://github.com/Aleksentcev/yatube-project.git
 ```
 
 ```
@@ -97,6 +96,7 @@ URL панели-администратора:
 ```
 
 В панели администратора есть возможность просматривать и редактировать данные из базы данных.
+
 Если ничего не заработало - идите пить чай :)
 
 ### Автор:
